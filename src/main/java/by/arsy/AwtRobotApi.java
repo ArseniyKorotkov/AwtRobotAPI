@@ -28,6 +28,10 @@ public class AwtRobotApi {
     }
 
 
+    /**
+     * Make click button on the keyboard according to the button code
+     * @param keyCode button code
+     */
     public void clickButton(int keyCode) {
         robot.keyPress(keyCode);
         sleep(pressPause);
@@ -36,6 +40,11 @@ public class AwtRobotApi {
     }
 
 
+    /**
+     * Press two buttons in a specific order to use their combination
+     * @param mainKeyCode is pressed first and released last
+     * @param secondKeyCode is pressed second and released first
+     */
     public void clickButtonPair(int mainKeyCode, int secondKeyCode) {
         robot.keyPress(mainKeyCode);
         clickButton(secondKeyCode);
@@ -43,11 +52,18 @@ public class AwtRobotApi {
     }
 
 
+    /**
+     * Click Ctrl + V
+     */
     public void clickButtonPairPaste() {
         clickButtonPair(KeyEvent.VK_CONTROL, KeyEvent.VK_V);
     }
 
 
+    /**
+     * Takes text to the clipboard and pastes it
+     * @param text to paste
+     */
     public void clickButtonPairPaste(String text) {
         Clipboard systemClipboard = Toolkit.getDefaultToolkit().getSystemClipboard();
         systemClipboard.setContents(new StringSelection(text), null);
@@ -55,6 +71,9 @@ public class AwtRobotApi {
     }
 
 
+    /**
+     * When working with a text document, selects the current line entirely
+     */
     public void selectString() {
         clickButton(KeyEvent.VK_HOME);
         robot.keyPress(KeyEvent.VK_SHIFT);
@@ -65,16 +84,29 @@ public class AwtRobotApi {
     }
 
 
+    /**
+     * Make rotate the mouse wheel down at the one moment
+     * @param steps set the number of clicks
+     */
     public void spinMouseWheelDown(int steps) {
         robot.mouseWheel(steps);
     }
 
 
+    /**
+     * Make rotate the mouse wheel up at the one moment
+     * @param steps set the number of clicks
+     */
     public void spinMouseWheelUp(int steps) {
         spinMouseWheelDown(steps * (-1));
     }
 
 
+    /**
+     * Make rotate the mouse wheel down at the specified speed
+     * @param steps set the number of clicks
+     * @param timesInSecond set the speed for the wheel per second
+     */
     public void spinMouseWheelDown(int steps, double timesInSecond) {
         for (int i = 0; i < steps; i++) {
             spinMouseWheelDown(1);
@@ -83,6 +115,11 @@ public class AwtRobotApi {
     }
 
 
+    /**
+     * Make rotate the mouse wheel up at the specified speed
+     * @param steps set the number of clicks
+     * @param timesInSecond set the speed for the wheel per second
+     */
     public void spinMouseWheelUp(int steps, double timesInSecond) {
         for (int i = 0; i < steps; i++) {
             spinMouseWheelUp(1);
@@ -91,23 +128,37 @@ public class AwtRobotApi {
     }
 
 
+    /**
+     * Make a left mouse click on the specified coordinates
+     * @param x coordinate
+     * @param y coordinate
+     */
     public void clickMouse(int x, int y) {
         robot.mouseMove(x, y);
         clickMouseLeftButton();
     }
 
 
+    /**
+     * Make a left mouse click
+     */
     public void clickMouseLeftButton() {
         clickMouse(InputEvent.BUTTON1_DOWN_MASK);
     }
 
 
+    /**
+     * Make a mouse click according to the button code
+     * @see InputEvent static values
+     * @param keyCode button code
+     */
     public void clickMouse(int keyCode) {
         robot.mousePress(keyCode);
         sleep(pressPause);
         robot.mouseRelease(keyCode);
         sleep(releasePause);
     }
+
 
     /**
      * The program termination method. It should be used at the end of the program to stop NativeKeyListener from running.
