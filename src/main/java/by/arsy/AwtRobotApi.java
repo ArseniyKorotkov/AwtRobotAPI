@@ -134,8 +134,18 @@ public class AwtRobotApi {
      * @param y coordinate
      */
     public void clickMouse(int x, int y) {
-        robot.mouseMove(x, y);
+        moveMouse(x, y);
         clickMouseLeftButton();
+    }
+
+
+    /**
+     * Change cursor coordinates
+     * @param x coordinate
+     * @param y coordinate
+     */
+    public void moveMouse(int x, int y) {
+        robot.mouseMove(x, y);
     }
 
 
