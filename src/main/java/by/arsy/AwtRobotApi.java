@@ -23,15 +23,26 @@ public class AwtRobotApi {
 	private final int millisInSecond = 1000;
 
 	/**
-	 * @param stopKeyCode           {@link #initStopListener}
-	 * @param showClickedButtonCode {@link #initStopListener}
+	 * Use this constructor when have problem with jnativehook
 	 */
-	public AwtRobotApi(int stopKeyCode, boolean showClickedButtonCode) {
+	public AwtRobotApi() {
 		try {
 			robot = new Robot(GraphicsEnvironment.getLocalGraphicsEnvironment().getDefaultScreenDevice());
 		} catch (AWTException e) {
 			throw new RuntimeException(e);
 		}
+	}
+
+	/**
+	 * Use this constructor for fast stop program from jnativehook
+	 *
+	 * @param stopKeyCode           {@link #initStopListener}
+	 * @param showClickedButtonCode {@link #initStopListener}
+	 *
+	 * @use {@link #close} for stop jnativehook
+	 */
+	public AwtRobotApi(int stopKeyCode, boolean showClickedButtonCode) {
+		this();
 		initStopListener(stopKeyCode, showClickedButtonCode);
 	}
 

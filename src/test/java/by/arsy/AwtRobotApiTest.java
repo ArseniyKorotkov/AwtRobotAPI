@@ -9,7 +9,7 @@ import java.awt.event.KeyEvent;
  */
 public class AwtRobotApiTest extends TestCase {
 
-	private final AwtRobotApi awtRobotApi = new AwtRobotApi(0, true);
+	private final AwtRobotApi awtRobotApi = new AwtRobotApi();
 
 	public void testClickButtonGroup() {
 		awtRobotApi.clickButtonGroup(
