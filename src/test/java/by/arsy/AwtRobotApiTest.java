@@ -1,33 +1,21 @@
 package by.arsy;
 
-import junit.framework.Test;
 import junit.framework.TestCase;
-import junit.framework.TestSuite;
+
+import java.awt.event.KeyEvent;
 
 /**
  * Unit test for simple App.
  */
 public class AwtRobotApiTest extends TestCase {
-    /**
-     * Create the test case
-     *
-     * @param testName name of the test case
-     */
-    public AwtRobotApiTest(String testName ) {
-        super( testName );
-    }
 
-    /**
-     * @return the suite of tests being tested
-     */
-    public static Test suite() {
-        return new TestSuite( AwtRobotApiTest.class );
-    }
+	private final AwtRobotApi awtRobotApi = new AwtRobotApi(0, true);
 
-    /**
-     * Rigourous Test :-)
-     */
-    public void testApp() {
-        assertTrue( true );
-    }
+	public void testClickButtonGroup() {
+		awtRobotApi.clickButtonGroup(
+				KeyEvent.VK_SHIFT,
+				KeyEvent.VK_CONTROL,
+				KeyEvent.VK_RIGHT
+		);
+	}
 }

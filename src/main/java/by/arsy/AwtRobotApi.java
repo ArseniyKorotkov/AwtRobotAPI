@@ -10,6 +10,10 @@ import java.awt.datatransfer.Clipboard;
 import java.awt.datatransfer.StringSelection;
 import java.awt.event.InputEvent;
 import java.awt.event.KeyEvent;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.stream.Collectors;
 
 public class AwtRobotApi {
 
@@ -18,6 +22,10 @@ public class AwtRobotApi {
 	private final int releasePause = 240;
 	private final int millisInSecond = 1000;
 
+	/**
+	 * @param stopKeyCode           {@link #initStopListener}
+	 * @param showClickedButtonCode {@link #initStopListener}
+	 */
 	public AwtRobotApi(int stopKeyCode, boolean showClickedButtonCode) {
 		try {
 			robot = new Robot(GraphicsEnvironment.getLocalGraphicsEnvironment().getDefaultScreenDevice());
@@ -46,11 +54,36 @@ public class AwtRobotApi {
 	 *
 	 * @param mainKeyCode   is pressed first and released last
 	 * @param secondKeyCode is pressed second and released first
+	 *
+	 * @deprecated use {@link #clickButtonGroup)}
 	 */
+	@Deprecated()
 	public void clickButtonPair(int mainKeyCode, int secondKeyCode) {
-		robot.keyPress(mainKeyCode);
-		clickButton(secondKeyCode);
-		robot.keyRelease(mainKeyCode);
+		clickButtonGroup(mainKeyCode, secondKeyCode);
+	}
+
+
+	/**
+	 * Press few buttons in a specific order to use their combination
+	 *
+	 * @param keyCodeGroup are pressed in order and released in reverse order
+	 */
+	public void clickButtonGroup(int... keyCodeGroup) {
+		ArrayList<Integer> keyCodeList = Arrays.stream(keyCodeGroup)
+				.boxed()
+				.collect(Collectors.toCollection(ArrayList::new));
+
+		keyCodeList.forEach(it -> {
+			robot.keyPress(it);
+			sleep(pressPause);
+		});
+
+		Collections.reverse(keyCodeList);
+
+		keyCodeList.forEach(it -> {
+			robot.keyRelease(it);
+			sleep(releasePause);
+		});
 	}
 
 
@@ -58,7 +91,7 @@ public class AwtRobotApi {
 	 * Click Ctrl + V
 	 */
 	public void clickButtonPairPaste() {
-		clickButtonPair(KeyEvent.VK_CONTROL, KeyEvent.VK_V);
+		clickButtonGroup(KeyEvent.VK_CONTROL, KeyEvent.VK_V);
 	}
 
 
