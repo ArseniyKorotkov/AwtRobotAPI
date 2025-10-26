@@ -18,4 +18,8 @@ public class AwtRobotApiTest extends TestCase {
 				KeyEvent.VK_RIGHT
 		);
 	}
+
+	public void testPasteText() {
+		awtRobotApi.clickButtonPairPaste("Hello world");
+	}
 }
